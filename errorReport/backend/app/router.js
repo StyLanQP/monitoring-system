@@ -1,0 +1,14 @@
+'use strict';
+
+/**
+ * @param {Egg.Application} app - egg application
+ */
+module.exports = app => {
+  const { router, controller } = app;
+  router.get('/', controller.home.index);
+  // 创建一个新的路由
+  router.get('/monitor/error', controller.monitor.index);
+  // 添加上传路由
+  router.post('/monitor/sourcemap', controller.monitor.upload);
+  router.get('/monitor/img', controller.monitor.img);
+};
