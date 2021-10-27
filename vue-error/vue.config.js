@@ -1,5 +1,6 @@
 // 自动上传Map
 const SourceMapPlugin = require("./plugin/source-map-plugin");
+const SourcemapWebpackPlugin = require("./plugin/sourcemap-webpack-plugin");
 module.exports = {
   // 关闭eslint规则
   devServer: {
@@ -14,7 +15,7 @@ module.exports = {
   configureWebpack: {
     plugins: [
       // 添加自动上传插件
-      new SourceMapPlugin({
+      new SourcemapWebpackPlugin({
         uploadUrl: "http://localhost:7001/monitor/sourcemap",
         apiKey: "kaikeba",
       }),

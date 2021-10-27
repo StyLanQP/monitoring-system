@@ -25,7 +25,7 @@ class SourceMapPlugin {
       console.log('uploadMap:', file)
   
       const req = http.request(
-        `${url}?name=${path.basename(file)}`,
+        `${url}?filename=${path.basename(file)}`,
         {
           method: 'POST',
           headers: {

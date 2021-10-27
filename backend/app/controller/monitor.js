@@ -21,11 +21,13 @@ class MonitorController extends Controller {
   }
   async upload() {
     const { ctx } = this;
+    console.log("hhhh", ctx.query)
     const stream = ctx.req;
-    const filename = ctx.query.name;
+    const filename = ctx.query.filename;
     const dir = path.join(this.config.baseDir, 'uploads');
-    // 判断upload目录是否存在
+    // 替换文件
     if (!fs.existsSync(dir)) {
+      // fs.unlinkSync(dir);
       fs.mkdirSync(dir);
     }
 
