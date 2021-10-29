@@ -1,39 +1,49 @@
 import Vue from "vue";
 import App from "./App.vue";
 import TraceKit from "tracekit";
+const http = require("http");
 
 Vue.config.productionTip = false;
 
+// 格式化错误对象
 TraceKit.report.subscribe((errorReport) => {
-  const {message, stack} = errorReport || {};
+  const { message, stack } = errorReport || {};
   var img = new Image();
-  let obj  ={
+  const stackItem = stack[0];
+  let obj = {
     message,
     stack: {
-      column: stack[0].column,
-      line: stack[0].line,
-      func: stack[0].func,
-      url: stack[0].url 
-    }
-  }
-  img.src = "http://localhost:7001/monitor/img?c="+JSON.stringify(obj);
-  console.log("2222", errorReport);
+      column: stackItem.column,
+      line: stackItem.line,
+      func: stackItem.func,
+      url: stackItem.url,
+    },
+  };
+  img.src = "http://localhost:4000/sourcemap/img?c=" + JSON.stringify(obj);
 });
 
+// vue 异常
 Vue.config.errorHandler = function(err) {
-  // console.error("errorHandle:", err, vm, info);
+  console.log("err", err);
   TraceKit.report(err);
 };
-
-window.addEventListener('error', args => {
-  console.log(
-    'error event:', args
-  );
-  return true;
-}, 
-true
+// 监听异常
+window.addEventListener(
+  "error",
+  (args) => {
+    const err = args.target.src || args.target.href;
+    if (err) {
+      console.log("捕获到资源加载异常", err);
+      var img = new Image();
+      let obj = {
+        message: "资源加载异常" + err,
+      };
+      img.src = "http://localhost:4000/sourcemap/img?c=" + JSON.stringify(obj);
+    }
+    return true;
+  },
+  true
 );
-
 new Vue({
   render: (h) => h(App),
 }).$mount("#app");

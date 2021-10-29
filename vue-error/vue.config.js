@@ -1,5 +1,4 @@
 // 自动上传Map
-const SourceMapPlugin = require("./plugin/source-map-plugin");
 const SourcemapWebpackPlugin = require("./plugin/sourcemap-webpack-plugin");
 module.exports = {
   // 关闭eslint规则
