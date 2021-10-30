@@ -82,7 +82,7 @@
           >awesome-vue</a
         >
       </li>
-      <img src="http://localhost:8080/3.png" alt="图片" />
+      <!-- <img src="http://localhost:8080/3.png" alt="图片" /> -->
     </ul>
   </div>
 </template>
@@ -98,24 +98,7 @@ export default {
   mounted() {
     // 写一个错误
     // a.b = 5
-
-    var options = {
-      host: "https://api.thingsmatrix.co", //远端服务器域名
-      // port: 4000, //远端服务器端口号
-      method: "get",
-      path: "/monitor/apiAccess/codeDistribute", //上传服务路径
-    };
-    console.log('res')
-    var req = http.request(options, function(res) {
-      console.log('res', res)
-      res.setEncoding("utf8");
-      res.on("data", function(chunk) {
-        // console.log('body: ' + chunk);
-      });
-      res.on("end", function() {
-        // console.log('res end.');
-      });
-    });
+    abc()
   },
 };
 </script>
